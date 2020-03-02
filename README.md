@@ -1,4 +1,4 @@
-## functional-vlpp Library
+## Functional-Vlpp Library
 
 [![arduino-library-badge](https://www.ardu-badge.com/badge/Functional-Vlpp.svg?)](https://www.ardu-badge.com/Functional-Vlpp)
 
