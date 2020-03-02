@@ -1,22 +1,30 @@
-/***********************************************************************
-Vczh Library++ 3.0
-Developer: Zihan Chen(vczh)
-Framework::Function
-
-Classes:
-	Func<function-type>									：函数对象
-
-Functions:
-	Curry :: (A->B) -> A -> B							：参数拆分
-	Combine :: (A->B) -> (A->C) -> (B->C->D) -> (A->D)	：函数组合
-***********************************************************************/
-
-/***********************************************************************
-Modified:
-	- Some include statement
-
-By Wang Ziqin(ziqin)
-***********************************************************************/
+/****************************************************************************************************************************
+ * Function.h
+ * 
+ * This library provides function templates to better support C++ functional programming across platforms.
+ * Based on Vlpp library (https://github.com/vczh-libraries/Vlpp)
+ * and Marcus Rugger functional-vlpp library (https://github.com/marcusrugger/functional-vlpp)
+ * Built by Khoi Hoang (https://github.com/khoih-prog/functional-vlpp)
+ * Licensed under MIT license
+ * Version: 1.0.1
+ *
+ * Original author
+ * Vczh Library++ 3.0
+ * Developer: Zihan Chen(vczh)
+ * Framework::Basic
+ *
+ * Classes:
+ *  Func<function-type>						：Function object
+ * 
+ * Functions:
+ *	Curry   :: (A->B) -> A -> B		：Currying
+ *	Combine :: (A->B) -> (A->C) -> (B->C->D) -> (A->D)	：Combine multiple functors using an operator
+ * 
+ * Version Modified By   Date      Comments
+ * ------- -----------  ---------- -----------
+ *  1.0.0   K Hoang      13/02/2019 Initial coding, testing and supporting AVR architecture
+ *  1.0.1   K Hoang      01/03/2019 Add support for STM32 and all other architectures.
+ *****************************************************************************************************************************/
 
 #ifndef VCZH_FUNCTION
 #define VCZH_FUNCTION
@@ -70,7 +78,7 @@ vl::Func<R(TArgs...)>
 		class MemberInvoker : public Invoker<R, TArgs...>
 		{
 		protected:
-			C*							sender;
+			C*	sender;
 			R(C::*function)(TArgs ...args);
 
 		public:
@@ -92,7 +100,7 @@ vl::Func<R(TArgs...)>
 		class ObjectInvoker : public Invoker<R, TArgs...>
 		{
 		protected:
-			C							function;
+			C		function;
 
 		public:
 			ObjectInvoker(const C& _function)
@@ -112,7 +120,7 @@ vl::Func<R(TArgs...)>
 		class ObjectInvoker<C, void, TArgs...> : public Invoker<void, TArgs...>
 		{
 		protected:
-			C							function;
+			C		function;
 
 		public:
 			ObjectInvoker(const C& _function)
@@ -134,7 +142,7 @@ vl::Func<R(TArgs...)>
 	class Func<R(TArgs...)> : public Object
 	{
 	protected:
-		Ptr<internal_invokers::Invoker<R, TArgs...>>		invoker;
+		Ptr<internal_invokers::Invoker<R, TArgs...>> invoker;
 	public:
 		typedef R FunctionType(TArgs...);
 		typedef R ResultType;
@@ -147,15 +155,15 @@ vl::Func<R(TArgs...)>
 		/// <summary>Copy a function reference.</summary>
 		/// <param name="function">The function reference to copy.</param>
 		Func(const Func<R(TArgs...)>& function)
+			:invoker(function.invoker)
 		{
-			invoker=function.invoker;
 		}
 		
 		/// <summary>Create a reference using a function pointer.</summary>
 		/// <param name="function">The function pointer.</param>
 		Func(R(*function)(TArgs...))
 		{
-			invoker=new internal_invokers::StaticInvoker<R, TArgs...>(function);
+			invoker = new internal_invokers::StaticInvoker<R, TArgs...>(function);
 		}
 		
 		/// <summary>Create a reference using a method.</summary>
@@ -165,7 +173,7 @@ vl::Func<R(TArgs...)>
 		template<typename C>
 		Func(C* sender, R(C::*function)(TArgs...))
 		{
-			invoker=new internal_invokers::MemberInvoker<C, R, TArgs...>(sender, function);
+			invoker = new internal_invokers::MemberInvoker<C, R, TArgs...>(sender, function);
 		}
 		
 		/// <summary>Create a reference using a function object.</summary>
@@ -174,7 +182,7 @@ vl::Func<R(TArgs...)>
 		template<typename C>
 		Func(const C& function)
 		{
-			invoker=new internal_invokers::ObjectInvoker<C, R, TArgs...>(function);
+			invoker = new internal_invokers::ObjectInvoker<C, R, TArgs...>(function);
 		}
 
 		/// <summary>Invoke the function.</summary>
@@ -183,6 +191,18 @@ vl::Func<R(TArgs...)>
 		R operator()(TArgs ...args)const
 		{
 			return invoker->Invoke(ForwardValue<TArgs>(args)...);
+		}
+		
+		Func<R(TArgs...)>& operator=(const Func<R(TArgs...)>& function)
+		{
+			invoker = function.invoker;
+			return *this;
+		}
+
+		Func<R(TArgs...)>& operator=(const Func<R(TArgs...)>&& function)
+		{
+			invoker = MoveValue(function.invoker);
+			return *this;
 		}
 
 		bool operator==(const Func<R(TArgs...)>& function)const
@@ -223,6 +243,7 @@ vl::function_lambda::LambdaRetriveType<R(TArgs...)>
 			typedef typename LambdaRetriveType<decltype(&T::operator())>::Type Type;
 			typedef typename LambdaRetriveType<decltype(&T::operator())>::FunctionType FunctionType;
 			typedef typename LambdaRetriveType<decltype(&T::operator())>::ResultType ResultType;
+			typedef typename LambdaRetriveType<decltype(&T::operator())>::ParameterTypes ParameterTypes;
 		};
  
 		template<typename TObject, typename R, typename ...TArgs>
@@ -375,8 +396,8 @@ vl::function_combining::Combining<R1(TArgs...), R2(TArgs...), R(R1,R2)>
 		class Combining<R1(TArgs...), R2(TArgs...), R(R1,R2)> : public Object
 		{
 		protected:
-			Func<R1(TArgs...)>			function1;
-			Func<R2(TArgs...)>			function2;
+			Func<R1(TArgs...)>		function1;
+			Func<R2(TArgs...)>		function2;
 			Func<R(R1, R2)>				converter;
 		public:
 			typedef R1 FirstFunctionType(TArgs...);

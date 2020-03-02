@@ -1,27 +1,33 @@
-/***********************************************************************
-Vczh Library++ 3.0
-Developer: Zihan Chen(vczh)
-Framework::Basic
-
-Classes:
-	NotCopyable									：不可复制对象
-	Object										：对象基类
-***********************************************************************/
-
-/***********************************************************************
-Merge: Basic.h, Basic.cpp -> Basic.h
-Modified:
-	- Some include statement
-	- INCRC(x) & DECRC(x) Macro
-Remove:
-	- MSVC support
-	- x64 support
-	- Some include statement
-	- Error Class
-	- CHECK_ERROR Macro
-
-By Wang Ziqin(ziqin)
-***********************************************************************/
+/****************************************************************************************************************************
+ * Basic.h
+ * 
+ * This library provides function templates to better support C++ functional programming across platforms.
+ * Based on Vlpp library (https://github.com/vczh-libraries/Vlpp)
+ * and Marcus Rugger functional-vlpp library (https://github.com/marcusrugger/functional-vlpp)
+ * Built by Khoi Hoang (https://github.com/khoih-prog/functional-vlpp)
+ * Licensed under MIT license
+ * Version: 1.0.1
+ *
+ * Original author
+ * Vczh Library++ 3.0
+ * Developer: Zihan Chen(vczh)
+ * Framework::Basic
+ *
+ * Classes:
+ * NotCopyable		: Object inherits from this type cannot be copied
+ * Error					: Error, unlike exception, is not encouraged to catch
+ * Object				  : Base class of all classes
+ *
+ * Macros:
+ * CHECK_ERROR(CONDITION,DESCRIPTION)	      	: Assert, throws an Error if failed
+ * CHECK_FAIL(DESCRIPTION)						        : Force an assert failure
+ * SCOPE_VARIABLE(TYPE,VARIABLE,VALUE){ ... }	: Scoped variable
+ * 
+ * Version Modified By   Date      Comments
+ * ------- -----------  ---------- -----------
+ *  1.0.0   K Hoang      13/02/2019 Initial coding, testing and supporting AVR architecture
+ *  1.0.1   K Hoang      01/03/2019 Add support for STM32 and all other architectures.
+ *****************************************************************************************************************************/
 
 #ifndef VCZH_BASIC
 #define VCZH_BASIC
@@ -34,8 +40,6 @@ By Wang Ziqin(ziqin)
 #define new VCZH_CHECK_MEMORY_LEAKS_NEW
 #endif
 
-
-//#include <x86intrin.h>
 #include <stdint.h>
 #include <stddef.h>
 #define abstract
@@ -99,7 +103,7 @@ namespace vl
 
 
 /***********************************************************************
-基础
+NotCopyable Base Class
 ***********************************************************************/
 
 	class NotCopyable
@@ -123,7 +127,7 @@ namespace vl
 		for(TYPE VARIABLE = VALUE;__scope_variable_flag__;__scope_variable_flag__=false)
 
 /***********************************************************************
-类型计算
+Type Traits
 ***********************************************************************/
 	
 	template<typename T>
@@ -171,7 +175,7 @@ namespace vl
 	template<typename T>
 	struct RemoveCVR
 	{
-		typedef T								Type;
+		typedef T			Type;
 	};
 
 	template<typename T>
@@ -222,7 +226,7 @@ namespace vl
 	};
 
 /***********************************************************************
-基础
+Object Base Class
 ***********************************************************************/
 
 	/// <summary>Base type of all classes.</summary>
@@ -240,7 +244,7 @@ namespace vl
 	class ObjectBox : public Object
 	{
 	private:
-		T					object;
+		T	object;
 	public:
 		/// <summary>Box a value.</summary>
 		/// <param name="_object">The value to box.</param>
@@ -311,7 +315,7 @@ namespace vl
 	class Nullable
 	{
 	private:
-		T*					object;
+		T*	object;
 	public:
 		/// <summary>Create a null value.</summary>
 		Nullable()
@@ -353,7 +357,7 @@ namespace vl
 			if(object)
 			{
 				delete object;
-				object=0;
+				object = 0;
 			}
 		}
 		
@@ -365,9 +369,9 @@ namespace vl
 			if(object)
 			{
 				delete object;
-				object=0;
+				object = 0;
 			}
-			object=new T(value);
+			object = new T(value);
 			return *this;
 		}
 		
@@ -376,16 +380,16 @@ namespace vl
 		/// <param name="nullable">The nullable value to copy.</param>
 		Nullable<T>& operator=(const Nullable<T>& nullable)
 		{
-			if(this!=&nullable)
+			if(this != &nullable)
 			{
 				if(object)
 				{
 					delete object;
-					object=0;
+					object = 0;
 				}
 				if(nullable.object)
 				{
-					object=new T(*nullable.object);
+					object = new T(*nullable.object);
 				}
 			}
 			return *this;
@@ -396,15 +400,15 @@ namespace vl
 		/// <param name="nullable">The nullable value to move.</param>
 		Nullable<T>& operator=(Nullable<T>&& nullable)
 		{
-			if(this!=&nullable)
+			if(this != &nullable)
 			{
 				if(object)
 				{
 					delete object;
-					object=0;
+					object = 0;
 				}
-				object=nullable.object;
-				nullable.object=0;
+				object = nullable.object;
+				nullable.object = 0;
 			}
 			return *this;
 		}
@@ -414,11 +418,11 @@ namespace vl
 			return
 				a.object
 				?b.object
-					?*a.object==*b.object
-					:false
+				?*a.object==*b.object
+				:false
 				:b.object
-					?false
-					:true;
+				?false
+				:true;
 		}
 
 		static vint Compare(const Nullable<T>& a, const Nullable<T>& b)
@@ -426,11 +430,11 @@ namespace vl
 			return
 				a.object
 				?b.object
-					?(*a.object==*b.object?0:*a.object<*b.object?-1:1)
-					:1
+				?(*a.object==*b.object?0:*a.object<*b.object?-1:1)
+				:1
 				:b.object
-					?-1
-					:0;
+				?-1
+				:0;
 		}
 
 		bool operator==(const Nullable<T>& nullable)const
@@ -445,29 +449,29 @@ namespace vl
 
 		bool operator<(const Nullable<T>& nullable)const
 		{
-			return Compare(*this, nullable)<0;
+			return Compare(*this, nullable) < 0;
 		}
 
 		bool operator<=(const Nullable<T>& nullable)const
 		{
-			return Compare(*this, nullable)<=0;
+			return Compare(*this, nullable) <= 0;
 		}
 
 		bool operator>(const Nullable<T>& nullable)const
 		{
-			return Compare(*this, nullable)>0;
+			return Compare(*this, nullable) > 0;
 		}
 
 		bool operator>=(const Nullable<T>& nullable)const
 		{
-			return Compare(*this, nullable)>=0;
+			return Compare(*this, nullable) >= 0;
 		}
 
 		/// <summary>Convert the nullable value to a bool value.</summary>
 		/// <returns>Returns true if it is not null.</returns>
 		operator bool()const
 		{
-			return object!=0;
+			return object != 0;
 		}
 		
 		/// <summary>Unbox the value. This operation will cause an access violation of it is null.</summary>
@@ -482,11 +486,11 @@ namespace vl
 	union BinaryRetriver
 	{
 		T t;
-		char binary[sizeof(T)>minSize?sizeof(T):minSize];
+		char binary[sizeof(T) > minSize ? sizeof(T) : minSize];
 	};
 
 /***********************************************************************
-配置
+Configuration Type Traits
 ***********************************************************************/
 
 	/// <summary>Get the index type of a value for containers.</summary>
@@ -513,29 +517,30 @@ namespace vl
 	struct POD
 	{
 		/// <summary>Returns true if the type is a Plain-Old-Data type.</summary>
-		static const bool Result=false;
+		static const bool Result = false;
 	};
 
-	template<>struct POD<bool>{static const bool Result=true;};
-	template<>struct POD<vint8_t>{static const bool Result=true;};
-	template<>struct POD<vuint8_t>{static const bool Result=true;};
-	template<>struct POD<vint16_t>{static const bool Result=true;};
-	template<>struct POD<vuint16_t>{static const bool Result=true;};
-	template<>struct POD<vint32_t>{static const bool Result=true;};
-	template<>struct POD<vuint32_t>{static const bool Result=true;};
-	template<>struct POD<vint64_t>{static const bool Result=true;};
-	template<>struct POD<vuint64_t>{static const bool Result=true;};
-	template<>struct POD<char>{static const bool Result=true;};
-	template<typename T>struct POD<T*>{static const bool Result=true;};
-	template<typename T>struct POD<T&>{static const bool Result=true;};
-	template<typename T, typename C>struct POD<T C::*>{static const bool Result=true;};
-	template<typename T, vint _Size>struct POD<T[_Size]>{static const bool Result=POD<T>::Result;};
-	template<typename T>struct POD<const T>{static const bool Result=POD<T>::Result;};
-	template<typename T>struct POD<volatile T>{static const bool Result=POD<T>::Result;};
-	template<typename T>struct POD<const volatile T>{static const bool Result=POD<T>::Result;};
+	template<>struct POD<bool>{static const bool Result = true;};
+	template<>struct POD<vint8_t>{static const bool Result = true;};
+	template<>struct POD<vuint8_t>{static const bool Result = true;};
+	template<>struct POD<vint16_t>{static const bool Result = true;};
+	template<>struct POD<vuint16_t>{static const bool Result = true;};
+	template<>struct POD<vint32_t>{static const bool Result = true;};
+	template<>struct POD<vuint32_t>{static const bool Result = true;};
+	template<>struct POD<vint64_t>{static const bool Result = true;};
+	template<>struct POD<vuint64_t>{static const bool Result = true;};
+	template<>struct POD<char>{static const bool Result = true;};
+	template<typename T>struct POD<T*>{static const bool Result = true;};
+	template<typename T>struct POD<T&>{static const bool Result = true;};
+	template<typename T>struct POD<T&&> { static const bool Result = true; };
+	template<typename T, typename C>struct POD<T C::*>{static const bool Result = true;};
+	template<typename T, vint _Size>struct POD<T[_Size]>{static const bool Result = POD<T>::Result;};
+	template<typename T>struct POD<const T>{static const bool Result = POD<T>::Result;};
+	template<typename T>struct POD<volatile T>{static const bool Result = POD<T>::Result;};
+	template<typename T>struct POD<const volatile T>{static const bool Result = POD<T>::Result;};
 
 /***********************************************************************
-接口
+Interface Class
 ***********************************************************************/
 	
 	/// <summary>Base type of all interfaces. All interface types are encouraged to be virtual inherited.</summary>
@@ -548,7 +553,7 @@ namespace vl
 	};
 
 /***********************************************************************
-类型萃取
+Type Extraction Class
 ***********************************************************************/
 
 	struct YesType{};
@@ -565,18 +570,87 @@ namespace vl
 		typedef T Type;
 	};
 
+  template<typename T1, typename T2>
+	struct YesNoAnd
+	{
+		typedef NoType Type;
+	};
+
+	template<>
+	struct YesNoAnd<YesType, YesType>
+	{
+		typedef YesType Type;
+	};
+
+	template<typename T1, typename T2>
+	struct YesNoOr
+	{
+		typedef YesType Type;
+	};
+
+	template<>
+	struct YesNoOr<NoType, NoType>
+	{
+		typedef NoType Type;
+	};
+	
 	template<typename YesOrNo>
 	struct AcceptValue
 	{
-		static const bool Result=false;
+		static const bool Result = false;
 	};
 
 	template<>
 	struct AcceptValue<YesType>
 	{
-		static const bool Result=true;
+		static const bool Result = true;
 	};
 
+template<typename T>
+	T ValueOf();
+
+	template<typename TFrom, typename TTo>
+	struct PointerConvertable
+	{
+		static YesType Test(TTo* value);
+		static NoType Test(void* value);
+
+		typedef decltype(Test(ValueOf<TFrom*>())) YesNoType;
+	};
+
+	template<typename TFrom, typename TTo>
+	struct ReturnConvertable
+	{
+		static YesType Test(TTo&& value);
+		static NoType Test(...);
+
+		typedef decltype(Test(ValueOf<TFrom&&>())) YesNoType;
+	};
+
+	template<typename TFrom>
+	struct ReturnConvertable<TFrom, void>
+	{
+		typedef YesType YesNoType;
+	};
+
+	template<typename TTo>
+	struct ReturnConvertable<void, TTo>
+	{
+		typedef NoType YesNoType;
+	};
+
+	template<>
+	struct ReturnConvertable<void, void>
+	{
+		typedef YesType YesNoType;
+	};
+
+	template<typename T, typename U>
+	struct AcceptAlways
+	{
+		typedef T Type;
+	};
+	
 	template<typename TFrom, typename TTo>
 	struct RequiresConvertable
 	{

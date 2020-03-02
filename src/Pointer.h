@@ -1,11 +1,26 @@
-/***********************************************************************
-Vczh Library++ 3.0
-Developer: Zihan Chen(vczh)
-Data Structure::Smart Pointer
-
-Classes:
-	Ptr<T>							：智能指针
-***********************************************************************/
+/****************************************************************************************************************************
+ * Pointer.h
+ * 
+ * This library provides function templates to better support C++ functional programming across platforms.
+ * Based on Vlpp library (https://github.com/vczh-libraries/Vlpp)
+ * and Marcus Rugger functional-vlpp library (https://github.com/marcusrugger/functional-vlpp)
+ * Built by Khoi Hoang (https://github.com/khoih-prog/functional-vlpp)
+ * Licensed under MIT license
+ * Version: 1.0.1
+ *
+ * Original author
+ * Vczh Library++ 3.0
+ * Developer: Zihan Chen(vczh)
+ * Framework::Basic
+ *
+ * Classes:
+ *  Ptr<T>							：Smart pointer
+ * 
+ * Version Modified By   Date      Comments
+ * ------- -----------  ---------- -----------
+ *  1.0.0   K Hoang      13/02/2019 Initial coding, testing and supporting AVR architecture
+ *  1.0.1   K Hoang      01/03/2019 Add support for STM32 and all other architectures.
+ *****************************************************************************************************************************/
 
 #ifndef VCZH_POINTER
 #define VCZH_POINTER
@@ -44,7 +59,7 @@ ReferenceCounterOperator
 	};
 
 /***********************************************************************
-Ptr
+Smart Ptr Class
 ***********************************************************************/
 
 	/// <summary>A smart pointer. It is always safe to convert a pointer to an object to a smart pointer once. If you do it multiple times, it may be wrong due to different implementation of [T:vl.ReferenceCounterOperator`2]. In case of wrong, disposing the smart pointer will cause an access violation.</summary>
