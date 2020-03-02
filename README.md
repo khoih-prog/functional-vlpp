@@ -13,7 +13,7 @@ This library is forked, modified to use and tested working ***OK*** in other arc
 The suggested way to install is to:
 
 #### Use Arduino Library Manager
-Another way is to use `Arduino Library Manager`. Search for `functional-vlpp`, then select / install the latest version. Uo can also use this link [![arduino-library-badge](https://www.ardu-badge.com/badge/Functional-Vlpp.svg?)](https://www.ardu-badge.com/Functional-Vlpp) for more detailed instructions.
+Another way is to use `Arduino Library Manager`. Search for `functional-vlpp`, then select / install the latest version. You can also use this link [![arduino-library-badge](https://www.ardu-badge.com/badge/Functional-Vlpp.svg?)](https://www.ardu-badge.com/Functional-Vlpp) for more detailed instructions.
 
 #### Manual Install
 
