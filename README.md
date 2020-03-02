@@ -1,6 +1,6 @@
 ## functional-vlpp Library
 
-[![arduino-library-badge](https://www.ardu-badge.com/badge/functional-vlpp.svg?)](https://www.ardu-badge.com/functional-vlpp)
+[![arduino-library-badge](https://www.ardu-badge.com/badge/Functional-Vlpp.svg?)](https://www.ardu-badge.com/Functional-Vlpp)
 
 The original [vczh-libraries/Vlpp](https://github.com/vczh-libraries/Vlpp) provides common C++ construction, including string operation / generic container / linq, function templates to better support ***C++ functional programming across platforms***. 
 
