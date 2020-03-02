@@ -4,7 +4,7 @@ The original [vczh-libraries/Vlpp](https://github.com/vczh-libraries/Vlpp) provi
 
 The `functional portion` of the project was then forked and modified to be used for Arduino by [Marcus Rugger functional-vlpp library](https://github.com/marcusrugger/functional-vlpp). 
 
-This is forked, modified to use and tested working ***OK*** in other architectures such as ***Teensy, SAM, SAMD, stm32, eps8266, esp32***.
+This library is forked, modified to use and tested working ***OK*** in other architectures such as ***Teensy, SAM, SAMD, stm32, eps8266, esp32***.
 
 This library can be used as a replacement of C++11 STL `std::function`. 
 For example, we can use `typedef vl::Func<void(void)> THandlerFunction` instead of `typedef std::function<void(void)> THandlerFunction` or `typedef void (*THandlerFunction)(void)`.
@@ -29,8 +29,8 @@ private:
     void startConfigurationMode()
     {   
       ...
-	    if (!server)
-	      server = new EthernetWebServer;
+      if (!server)
+        server = new EthernetWebServer;
 	        
       if (server)
       {
