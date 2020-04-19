@@ -1,6 +1,10 @@
 ## Functional-Vlpp Library
 
 [![arduino-library-badge](https://www.ardu-badge.com/badge/Functional-Vlpp.svg?)](https://www.ardu-badge.com/Functional-Vlpp)
+[![GitHub release](https://img.shields.io/github/release/khoih-prog/Functional-Vlpp.svg)](https://github.com/khoih-prog/Functional-Vlpp/releases)
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/khoih-prog/Functional-Vlpp/blob/master/LICENSE)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#Contributing)
+[![GitHub issues](https://img.shields.io/github/issues/khoih-prog/Functional-Vlpp.svg)](http://github.com/khoih-prog/Functional-Vlpp/issues)
 
 The original [vczh-libraries/Vlpp](https://github.com/vczh-libraries/Vlpp) provides common C++ construction, including string operation / generic container / linq, function templates to better support ***C++ functional programming across platforms***. 
 
