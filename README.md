@@ -10,11 +10,11 @@
 
 ### Version v1.0.1
 
-1. Add support to and tested working **OK** in other architectures such as **Teensy, SAM, SAMD, stm32, eps8266, esp32** besides AVR.
+1. Add support to and tested working **OK** in other architectures such as **Teensy, SAM, SAMD, STM32, eps8266, esp32** besides AVR.
 
 ### Initial Releases v1.0.0
 
-1. Based on and modified from [Marcus Rugger's functional-vlpp library](https://github.com/marcusrugger/functional-vlpp).
+1. Based on and modified from [**Marcus Rugger's functional-vlpp Library**](https://github.com/marcusrugger/functional-vlpp).
 
 ---
 
@@ -22,7 +22,7 @@ The original [vczh-libraries/Vlpp](https://github.com/vczh-libraries/Vlpp) provi
 
 The `functional portion` of the project was then forked and modified to be used for Arduino by [Marcus Rugger functional-vlpp library](https://github.com/marcusrugger/functional-vlpp). 
 
-This library is based on, modified to use and tested working **OK** in other architectures such as **Teensy, SAM, SAMD, stm32, eps8266, esp32**.
+This [**Functional-Vlpp library**](https://github.com/khoih-prog/Functional-Vlpp) is based on, modified to use and tested working **OK** in other architectures such as **Teensy, SAM, SAMD, STM32, eps8266, esp32**.
 
 ---
 ---
@@ -35,9 +35,10 @@ This library is based on, modified to use and tested working **OK** in other arc
  4. [`Teensy core 1.53+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0, LC) boards
  5. [`Arduino SAM DUE core 1.6.12+`](https://www.arduino.cc/en/Guide/ArduinoDue) for SAM DUE ARM Cortex-M3 boards
  6. [`Arduino SAMD core 1.8.9+`](https://www.arduino.cc/en/Guide/ArduinoM0) for SAMD ARM Cortex-M0+ boards  (Nano 33 IoT, etc.).
- 7. [`Adafruit SAMD core 1.6.3+`](https://www.adafruit.com/)  for SAMD ARM Cortex-M0+ and M4 boards (Itsy-Bitsy M4, etc.)
- 8. [`Adafruit nRF52 v0.21.0+`](www.adafruit.com) for nRF52 boards such as AdaFruit Feather nRF52840 Express, NINA_B302_ublox, NINA_B112_ublox, etc.
- 9. [`Seeeduino SAMD core 1.7.9+`](https://www.seeedstudio.com/) for SAMD21/SAMD51 boards (XIAO M0, Wio Terminal, etc.) 
+ 7. [`Adafruit SAMD core 1.6.4+`](https://www.adafruit.com/)  for SAMD ARM Cortex-M0+ and M4 boards (Itsy-Bitsy M4, etc.)
+ 8. [`Seeeduino SAMD core 1.8.1+`](https://www.seeedstudio.com/) for SAMD21/SAMD51 boards (XIAO M0, Wio Terminal, etc.) 
+ 9. [`Adafruit nRF52 v0.21.0+`](www.adafruit.com) for nRF52 boards such as AdaFruit Feather nRF52840 Express, NINA_B302_ublox, NINA_B112_ublox, etc.
+ 
 
 ---
 
@@ -60,7 +61,7 @@ You can also use this link [![arduino-library-badge](https://www.ardu-badge.com/
 
 1. Install [VS Code](https://code.visualstudio.com/)
 2. Install [PlatformIO](https://platformio.org/platformio-ide)
-3. Install **Functional-Vlpp** library by using [Library Manager](https://docs.platformio.org/en/latest/librarymanager/). Search for **Functional-Vlpp** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
+3. Install [**Functional-Vlpp** library](https://platformio.org/lib/show/7082/Functional-Vlpp) by using [Library Manager](https://platformio.org/lib/show/7082/Functional-Vlpp/installation). Search for **Functional-Vlpp** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
 4. Use included [platformio.ini](platformio/platformio.ini) file from examples to ensure that all dependent libraries will installed automatically. Please visit documentation for the other options and examples at [Project Configuration File](https://docs.platformio.org/page/projectconf.html)
 
 ---
@@ -133,22 +134,22 @@ These files must be copied into the directory:
 
 Whenever the above-mentioned compiler error issue is fixed with the new Arduino SAMD release, you don't need to copy the `Arduino.h` file anymore.
 
- 5. **To be able to automatically detect and display BOARD_NAME on Adafruit SAMD (Itsy-Bitsy M4, etc) boards**, you have to copy the file [Adafruit SAMD platform.txt](Packages_Patches/adafruit/hardware/samd/1.6.3) into Adafruit samd directory (~/.arduino15/packages/adafruit/hardware/samd/1.6.3). 
+ 5. ***To be able to automatically detect and display BOARD_NAME on Adafruit SAMD (Itsy-Bitsy M4, etc) boards***, you have to copy the file [Adafruit SAMD platform.txt](Packages_Patches/adafruit/hardware/samd/1.6.4) into Adafruit samd directory (~/.arduino15/packages/adafruit/hardware/samd/1.6.4). 
 
-Supposing the Adafruit SAMD core version is 1.6.3. This file must be copied into the directory:
+Supposing the Adafruit SAMD core version is 1.6.4. This file must be copied into the directory:
 
-- `~/.arduino15/packages/adafruit/hardware/samd/1.6.3/platform.txt`
+- `~/.arduino15/packages/adafruit/hardware/samd/1.6.4/platform.txt`
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
 This file must be copied into the directory:
 
 - `~/.arduino15/packages/adafruit/hardware/samd/x.yy.zz/platform.txt`
 
- 6. **To be able to automatically detect and display BOARD_NAME on Seeeduino SAMD (XIAO M0, Wio Terminal, etc) boards**, you have to copy the file [Seeeduino SAMD platform.txt](Packages_Patches/Seeeduino/hardware/samd/1.7.9) into Adafruit samd directory (~/.arduino15/packages/Seeeduino/hardware/samd/1.7.9). 
+ 6. ***To be able to automatically detect and display BOARD_NAME on Seeeduino SAMD (XIAO M0, Wio Terminal, etc) boards***, you have to copy the file [Seeeduino SAMD platform.txt](Packages_Patches/Seeeduino/hardware/samd/1.8.1) into Adafruit samd directory (~/.arduino15/packages/Seeeduino/hardware/samd/1.8.1). 
 
-Supposing the Seeeduino SAMD core version is 1.7.9. This file must be copied into the directory:
+Supposing the Seeeduino SAMD core version is 1.8.1. This file must be copied into the directory:
 
-- `~/.arduino15/packages/Seeeduino/hardware/samd/1.7.9/platform.txt`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.1/platform.txt`
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
 This file must be copied into the directory:
@@ -212,14 +213,16 @@ private:
 
 ---
 
-This library has been used sucessfully in :
+This [**Functional-Vlpp library**](https://github.com/khoih-prog/Functional-Vlpp) has been used sucessfully in :
 
-1. [Functional-Vlpp library for Arduino, Teensy, SAM, SAMD, STM32, etc. architectures](https://github.com/khoih-prog/Functional-Vlpp)
+1. [ESP8266_AT_WebServer library for Arduino, Teensy, SAM, SAMD, STM32, etc. architectures](https://github.com/khoih-prog/ESP8266_AT_WebServer)
 2. [EthernetWebServer library for Arduino, ESP,Teensy, SAM, SAMD, etc. architectures](https://github.com/khoih-prog/EthernetWebServer)
 3. [EthernetWebServer_STM32 library for STM32 architectures](https://github.com/khoih-prog/EthernetWebServer_STM32)
 4. [Blynk_Esp8266AT_WM library for Arduino, Teensy, SAM, SAMD, STM32, etc. architectures](https://github.com/khoih-prog/Blynk_Esp8266AT_WM)
 5. [BlynkEthernet_WM library for Arduino, ESP,Teensy, SAM, SAMD, etc. architectures](https://github.com/khoih-prog/BlynkEthernet_WM)
 6. [BlynkEthernet_STM32_WM library for Arduino, Teensy, SAM, SAMD, STM32, etc. architectures](https://github.com/khoih-prog/BlynkEthernet_STM32_WM)
+7. [WiFiManager_NINA_Lite library for Arduino, Teensy, SAM, SAMD, STM32, etc. architectures](https://github.com/khoih-prog/WiFiManager_NINA_Lite)
+8. [WiFiWebServer library for Arduino, Teensy, SAM, SAMD, STM32, etc. architectures](https://github.com/khoih-prog/WiFiWebServer)
 
 and many more to come.
 
@@ -250,6 +253,7 @@ void onNotFound(THandlerFunction fn);  //called when handler is not assigned
 void onFileUpload(THandlerFunction fn); //handle file uploads
 
 ```
+---
 ---
 
 ### Version v1.0.1
