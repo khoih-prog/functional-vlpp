@@ -11,7 +11,7 @@
 
 ## Table of Contents
 
-* [Why do we need this WiFiManager_NINA_Lite library](#why-do-we-need-this-wifimanager_nina_lite-library)
+* [Why do we need this functional-vlpp library](#why-do-we-need-this-functional-vlpp-library)
   * [Features](#features)
   * [Currently supported Boards](#currently-supported-boards)
 * [Changelog](#changelog)
@@ -50,9 +50,9 @@
 
 #### Features
 
-The original [vczh-libraries/Vlpp](https://github.com/vczh-libraries/Vlpp) provides common C++ construction, including string operation / generic container / linq, function templates to better support **C++ functional programming across platforms**. 
+The original [**vczh-libraries/Vlpp**](https://github.com/vczh-libraries/Vlpp) provides common C++ construction, including string operation / generic container / linq, function templates to better support **C++ functional programming across platforms**. 
 
-The `functional portion` of the project was then forked and modified to be used for Arduino by [Marcus Rugger functional-vlpp library](https://github.com/marcusrugger/functional-vlpp). 
+The `functional portion` of the project was then forked and modified to be used for Arduino by [**Marcus Rugger's functional-vlpp library**](https://github.com/marcusrugger/functional-vlpp). 
 
 This [**Functional-Vlpp library**](https://github.com/khoih-prog/Functional-Vlpp) is based on, modified to use and tested working **OK** in other architectures such as **Teensy, SAM-DUE, SAMD, STM32, eps8266, esp32**.
 
@@ -116,7 +116,7 @@ This [**Functional-Vlpp library**](https://github.com/khoih-prog/Functional-Vlpp
 ## Prerequisites
 
  1. [`Arduino IDE 1.8.13+` for Arduino](https://www.arduino.cc/en/Main/Software)
- 2. [`Arduino AVR core 1.8.3+`](https://github.com/arduino/ArduinoCore-avr) for Arduino AVR boards. Use Arduino Board Manager to install.
+ 2. [`Arduino AVR core 1.8.3+`](https://github.com/arduino/ArduinoCore-avr) for Arduino AVR boards. Use Arduino Board Manager to install. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-avr.svg)](https://github.com/arduino/ArduinoCore-avr/releases/latest)
  3. [`Arduino Core for STM32 v1.9.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
  4. [`Teensy core 1.51+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0, LC) boards
  5. [`Arduino SAM DUE core 1.6.12+`](https://github.com/arduino/ArduinoCore-sam) for SAM DUE ARM Cortex-M3 boards
