@@ -28,6 +28,8 @@
 #ifndef FUNCTIONAL_VLPP
 #define FUNCTIONAL_VLPP
 
+#define FUNCTIONAL_VLPP_VERSION        "Functional-Vlpp v1.0.2"
+
 #include "Function.h"
 
 #endif    // FUNCTIONAL_VLPP
