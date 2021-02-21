@@ -1,7 +1,7 @@
 {
   "name": "Functional-Vlpp",
-  "version": "1.0.1",
-  "keywords": "C++, Function, Lambda, Class, AVR, Teensy, SAM, SAMD, stm32, eps8266, esp32, nRF52",
+  "version": "1.0.2",
+  "keywords": "C++, Function, functional-vlpp, lambda-function, Lambda, Class, AVR, Teensy, SAM, SAMD, stm32, eps8266, esp32, nRF52",
   "description": "Provides common C++ construction, including string operation / generic container / linq, function templates to better support C++ functional programming across platforms",
   "repository":
   {
